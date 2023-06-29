@@ -5,4 +5,4 @@ frontend for a contest
 - [ ] db
 - [ ] colab
 - [ ] API config
-- [x] responsive
+- [ ] responsive
