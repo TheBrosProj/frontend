@@ -1,11 +1,12 @@
 // pages/index.jsx
 'use client'
 import { Box } from '@chakra-ui/react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { ChakraProvider } from '@chakra-ui/react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import ImageCarousel from '@/components/Carousel';
 import { useState, useEffect } from 'react';
+import { Flex, Spinner } from '@chakra-ui/react';
+
 
 export default function Home() {
   const [domLoaded, setDomLoaded] = useState(false);
@@ -15,22 +16,23 @@ export default function Home() {
   }, []);
   return (
     <>
-      {domLoaded && (
-
-        <ChakraProvider>
+      {domLoaded ? (
           <Box minHeight="100vh" display="flex" flexDirection="column">
             <Navbar />
-
             <ImageCarousel></ImageCarousel>
-            <Box maxW="md" mx="auto" mt={8} p={4}>
+            {/* <Box maxW="md" mx="auto" mt={8} p={4}>
               <h1>Welcome to the Homepage!</h1>
               <p>Content of your homepage goes here.</p>
-            </Box>
+            </Box> */}
             <Footer />
-
           </Box>
-        </ChakraProvider>
-      )}
+        // </ChakraProvider>
+      ) : 
+      <>
+      <Flex align="center" justify="center">
+      <Spinner size={"xl"}></Spinner>
+      </Flex>
+      </>}
     </>
   );
 }

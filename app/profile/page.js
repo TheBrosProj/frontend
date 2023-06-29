@@ -5,6 +5,8 @@ import { Box, Heading, Text } from '@chakra-ui/react';
 import { auth } from '@/lib/firebase';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -22,8 +24,9 @@ export default function Profile() {
   }, []);
 
   return (
-    <ChakraProvider>
-    <Box maxW="md" mx="auto" mt={8} p={4}>
+    <>
+    <Navbar></Navbar>
+    <Box minH="80vh" maxW="md" mx="auto" mt={8} p={4}>
       <Heading mb={4}>Profile</Heading>
       {user ? (
         <>
@@ -32,7 +35,7 @@ export default function Profile() {
           </Text> */}
           <Image 
           borderRadius='full'
-          boxSize="50vw"
+          boxSize="150px"
           src={`https://api.dicebear.com/6.x/fun-emoji/svg?seed=${user.uid}`}
           alt={user.email}
           ></Image>
@@ -44,9 +47,10 @@ export default function Profile() {
           </Text>
         </>
       ) : (
-        <Text>Please sign in to view your profile.</Text>
+        <Text>Please Wait while we try to sign you in or try signing in to view your profile.</Text>
       )}
     </Box>
-    </ChakraProvider>
+    <Footer></Footer>
+    </>
   );
 }

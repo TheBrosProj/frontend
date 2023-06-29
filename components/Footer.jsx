@@ -4,17 +4,17 @@ import NextLink from 'next/link';
 
 export default function Footer() {
   return (
-    <Box as="footer" bg="blue.500" color="white" p={4} mt="auto">
-      <Flex align="center" justify="center">
+    <Box as="footer"p={4} mt="auto">
+      {/* <Flex align="center" justify="center">
         <NextLink href="/privacy-policy">
           <Link mr={4}>Privacy Policy</Link>
         </NextLink>
         <NextLink href="/terms-of-service">
           <Link>Terms of Service</Link>
         </NextLink>
-      </Flex>
+      </Flex> */}
       <Text mt={4} textAlign="center">
-        &copy; {new Date().getFullYear()} Your Website. All rights reserved.
+        &copy; {new Date().getFullYear()} Nandan Varma. All rights reserved.
       </Text>
     </Box>
   );
