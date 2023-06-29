@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ImageCarousel from '@/components/Carousel';
 import { useState, useEffect } from 'react';
-import { Flex, Spinner } from '@chakra-ui/react';
+import { ChakraProvider, Flex, Spinner } from '@chakra-ui/react';
 
 
 export default function Home() {
@@ -16,6 +16,7 @@ export default function Home() {
   }, []);
   return (
     <>
+    <ChakraProvider>
       {domLoaded ? (
           <Box minHeight="100vh" display="flex" flexDirection="column">
             <Navbar />
@@ -33,6 +34,7 @@ export default function Home() {
       <Spinner size={"xl"}></Spinner>
       </AbsoluteCenter>
       </>}
+      </ChakraProvider>
     </>
   );
 }

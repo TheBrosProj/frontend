@@ -37,6 +37,7 @@ export default function Signup() {
     };
 
     return (
+      <ChakraProvider>
             <Box maxW="sm" mx="auto" mt={8} p={4}>
                 <Heading mb={4}>Signup</Heading>
                 <form onSubmit={handleSignup}>
@@ -61,5 +62,7 @@ export default function Signup() {
                     </Button>
                 </form>
             </Box>
+      </ChakraProvider>
+
     );
 }

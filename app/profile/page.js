@@ -25,6 +25,7 @@ export default function Profile() {
 
   return (
     <>
+    <ChakraProvider>
     <Navbar></Navbar>
     <Box minH="80vh" maxW="md" mx="auto" mt={8} p={4}>
       <Heading mb={4}>Profile</Heading>
@@ -51,6 +52,7 @@ export default function Profile() {
       )}
     </Box>
     <Footer></Footer>
+    </ChakraProvider>
     </>
   );
 }

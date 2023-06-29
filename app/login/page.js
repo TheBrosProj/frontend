@@ -37,7 +37,7 @@ export default function Login() {
     };
 
     return (
-        <DomCheck>
+        <ChakraProvider>
             <Box maxW="sm" mx="auto" mt={8} p={4}>
                 <Heading mb={4}>Login</Heading>
                 <form onSubmit={handleLogin}>
@@ -62,6 +62,7 @@ export default function Login() {
                     </Button>
                 </form>
             </Box>
-        </DomCheck>
+        </ChakraProvider>
+
     );
 }
