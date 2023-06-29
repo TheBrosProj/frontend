@@ -1,18 +1,33 @@
-// components/Navbar.jsx
-'use client'
-import { Box, Text, Flex, Link, Avatar, Button, Image, Grid } from '@chakra-ui/react';
+import { Box, Text, Flex, Link, Avatar, Button, Image, Grid, Menu, MenuButton, MenuList, MenuItem, useMediaQuery } from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import { useAuth } from '@/lib/auth';
 
 export default function Navbar() {
     const auth = useAuth();
+    const [isSmallScreen] = useMediaQuery("(max-width: 600px)");
     return (
         <Flex as="nav" align="center" justify="space-between" p={4} fontWeight={"extrabold"}>
             <Link href="/">
                 <Image src="./favicon.png" height="5vh" width="5vh"></Image>
             </Link>
-                <Link>Home</Link>
-                <Link>About</Link>
-                <Link>Contact</Link>
+            {isSmallScreen ? (
+                <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                        Menu
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem><Link>Home</Link></MenuItem>
+                        <MenuItem><Link>About</Link></MenuItem>
+                        <MenuItem><Link>Contact</Link></MenuItem>
+                    </MenuList>
+                </Menu>
+            ) : (
+                <>
+                    <Link>Home</Link>
+                    <Link>About</Link>
+                    <Link>Contact</Link>
+                </>
+            )}
             {auth.user ? (
                 <Flex align="center">
                             <Link href="/profile">
@@ -23,9 +38,11 @@ export default function Navbar() {
                             mr={2}
                             />
                             </Link>
+                            { !isSmallScreen && (
                             <Link href="/profile">
                         <Box mr={2}>{auth.user.email}</Box>
                             </Link>
+                            )}
                     <Button onClick={() => auth.signOut()}>Sign Out</Button>
                 </Flex>
             ) : (
