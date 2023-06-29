@@ -1,6 +1,6 @@
 // pages/index.jsx
 'use client'
-import { Box } from '@chakra-ui/react';
+import { AbsoluteCenter, Box } from '@chakra-ui/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ImageCarousel from '@/components/Carousel';
@@ -29,9 +29,9 @@ export default function Home() {
         // </ChakraProvider>
       ) : 
       <>
-      <Flex align="center" justify="center">
+      <AbsoluteCenter>
       <Spinner size={"xl"}></Spinner>
-      </Flex>
+      </AbsoluteCenter>
       </>}
     </>
   );
