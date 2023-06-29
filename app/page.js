@@ -30,9 +30,7 @@ export default function Home() {
         // </ChakraProvider>
       ) : 
       <>
-      <AbsoluteCenter>
-      <Spinner size={"xl"}></Spinner>
-      </AbsoluteCenter>
+      <Spinner size={"xl"}  margin={"45%"}></Spinner>
       </>}
       </ChakraProvider>
     </>

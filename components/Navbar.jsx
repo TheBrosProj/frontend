@@ -1,18 +1,18 @@
 // components/Navbar.jsx
 'use client'
-import { Box, Flex, Link, Avatar, Button, Image } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { Box, Text, Flex, Link, Avatar, Button, Image, Grid } from '@chakra-ui/react';
 import { useAuth } from '@/lib/auth';
 
 export default function Navbar() {
     const auth = useAuth();
     return (
-        <Flex as="nav" align="center" justify="space-between" p={4}>
-            <NextLink href="/">
-                <Image src="./favicon.png" height="5vh" width="5vh">
-
-                </Image>
-            </NextLink>
+        <Flex as="nav" align="center" justify="space-between" p={4} fontWeight={"extrabold"}>
+            <Link href="/">
+                <Image src="./favicon.png" height="5vh" width="5vh"></Image>
+            </Link>
+                <Link>Home</Link>
+                <Link>About</Link>
+                <Link>Contact</Link>
             {auth.user ? (
                 <Flex align="center">
                             <Link href="/profile">
@@ -30,12 +30,12 @@ export default function Navbar() {
                 </Flex>
             ) : (
                 <Flex>
-                    <NextLink href="/login">
+                    <Link href="/login">
                         <Button mr={4}>Login</Button>
-                    </NextLink>
-                    <NextLink href="/signup">
+                    </Link>
+                    <Link href="/signup">
                         <Button >Sign Up</Button>
-                    </NextLink>
+                    </Link>
                 </Flex>
             )}
         </Flex>

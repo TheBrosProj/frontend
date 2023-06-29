@@ -6,7 +6,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 export default function ImageCarousel() {
   return (
     <Box margin={"12"} borderRadius={"3xl"}>
-    <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false} showArrows={false}>
+    <Carousel dynamicHeight={true} autoPlay infiniteLoop showThumbs={false} showStatus={false} showArrows={false}>
     <Box overflow="hidden">
       <Image src="./image.jpg" alt="Image 1" objectFit="cover" />
     </Box>
