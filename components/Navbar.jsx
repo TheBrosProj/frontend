@@ -16,16 +16,16 @@ export default function Navbar() {
                         Menu
                     </MenuButton>
                     <MenuList>
-                        <MenuItem><Link>Home</Link></MenuItem>
-                        <MenuItem><Link>About</Link></MenuItem>
-                        <MenuItem><Link>Contact</Link></MenuItem>
+                        <MenuItem><Link href="/">Home</Link></MenuItem>
+                        <MenuItem><Link href="/about">About</Link></MenuItem>
+                        <MenuItem><Link href="/contact">Contact</Link></MenuItem>
                     </MenuList>
                 </Menu>
             ) : (
                 <>
-                    <Link>Home</Link>
-                    <Link>About</Link>
-                    <Link>Contact</Link>
+                    <Link href="/">Home</Link>
+                    <Link href="/about">About</Link>
+                    <Link href="/contact">Contact</Link>
                 </>
             )}
             {auth.user ? (

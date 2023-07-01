@@ -13,32 +13,37 @@ import {
     Button,
 } from '@chakra-ui/react';
 import { auth } from '@/lib/firebase';
-import DomCheck from '@/components/DomCheck';
+import LoadPage from '@/components/LoadPage';
 
 export default function Login() {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    let isLoading = false;
     const toast = useToast();
 
 
     const handleLogin = async (e) => {
+        isLoading = true;
         e.preventDefault();
         try {
             await auth.signInWithEmailAndPassword(email, password);
             router.push('/profile'); // Redirect to dashboard on successful login
         } catch (error) {
-                toast({
-                  title: `${error.message}`,
-                  status: 'error',
-                  isClosable: true,
-                })
+            toast({
+                title: `${error.message}`,
+                status: 'error',
+                isClosable: true,
+            })
             // console.log('Login error:', error);
+        }
+        finally{
+            isLoading = false;
         }
     };
 
     return (
-        <ChakraProvider>
+        <LoadPage>
             <Box maxW="sm" mx="auto" mt={8} p={4}>
                 <Heading mb={4}>Login</Heading>
                 <form onSubmit={handleLogin}>
@@ -58,12 +63,14 @@ export default function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </FormControl>
-                    <Button type="submit" colorScheme="gray" mb={4}>
+                    <Button
+                    isLoading={isLoading}
+                     type="submit" colorScheme="gray" mb={4}>
                         Log In
                     </Button>
                 </form>
             </Box>
-        </ChakraProvider>
+        </LoadPage>
 
     );
 }

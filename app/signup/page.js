@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
-    ChakraProvider,
     Box,
     Heading,
     FormControl,
@@ -13,6 +12,7 @@ import {
     useToast
 } from '@chakra-ui/react';
 import { auth } from '@/lib/firebase';
+import LoadPage from '@/components/LoadPage';
 
 export default function Signup() {
     const router = useRouter();
@@ -37,7 +37,7 @@ export default function Signup() {
     };
 
     return (
-      <ChakraProvider>
+      <LoadPage>
             <Box maxW="sm" mx="auto" mt={8} p={4}>
                 <Heading mb={4}>Signup</Heading>
                 <form onSubmit={handleSignup}>
@@ -62,7 +62,7 @@ export default function Signup() {
                     </Button>
                 </form>
             </Box>
-      </ChakraProvider>
+      </LoadPage>
 
     );
 }
