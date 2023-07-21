@@ -10,5 +10,6 @@ Tools
 - [x] Pomodoro Timer
 - [ ] Extension to hyperlinks
 - [ ] save projects to DB (firestore)
+
 - [ ] Search summarizer
 - [ ] Video summarizer
