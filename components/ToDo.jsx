@@ -14,30 +14,33 @@ import {
     InputGroup,
     InputRightElement,
 } from "@chakra-ui/react";
-import { CheckIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { CheckIcon, EditIcon, DeleteIcon,RepeatIcon } from "@chakra-ui/icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import moment from "moment/moment";
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
     const [input, setInput] = useState("");
-
     const handleAddTodo = () => {
         if (input) {
-            setTodos([...todos, { "data": input, "state": "active" }]);
+            setTodos([...todos, { "data": input, "state": "active" , "time" : moment.now() }]);
             setInput("");
         }
         console.log(todos);
     };
 
     const handleDelete = (todo) => {
-        setTodos(todos.filter((t) => t !== todo));
+        setTodos([...todos.filter((t) => t["data"] !== todo["data"] )]);
     };
 
     const handleCompletion = (todo) => {
-        setTodos([... todos.filter(t => t["data"] !== todo["data"]), { "data": todo["data"], "state": "completed" }])
+        setTodos([...todos.filter(t => t["data"] !== todo["data"]), { "data": todo["data"], "state": "completed", "time": moment.now() }])
     }
 
+    const handleRevive = (todo) => {
+        setTodos([...todos.filter(t => t["data"] !== todo["data"]), { "data": todo["data"], "state": "active", "time": moment.now() }])
+    }
     return (
         <Center>
 
@@ -61,7 +64,7 @@ const TodoList = () => {
                     />
                     <InputRightElement>
                         <IconButton
-                            size={'sm'}
+                            // size={'sm'}
                             aria-label="Add todo"
                             icon={<FontAwesomeIcon icon={faPlus} />}
                             onClick={handleAddTodo}
@@ -70,7 +73,7 @@ const TodoList = () => {
                 </InputGroup>
                 <Box colorScheme="gray" mt="4">
                     {todos
-                        .filter(todo => todo["state"] === 'active' )
+                        .filter(todo => todo["state"] === 'active')
                         .map((todo) => (
                             <Flex
                                 key={todo["data"]} align="center" m="2" p="2" justify="space-between"
@@ -98,15 +101,28 @@ const TodoList = () => {
                             </Flex>
                         ))}
                     {todos
-                        .filter((t) => t["state"] === "completed" )
+                        .filter((t) => t["state"] === "completed")
                         .map((todo) => (
                             <Flex
-                                key={todo["data"]} align="center" m="2" paddingY="4" paddingX="2" justify="space-between"
+                                key={todo["data"]} align="center" m="2" p="2" paddingX="2" justify="space-between"
                                 // border={'1px solid gray'} 
                                 borderRadius={'md'}
-                                boxShadow={'md'} 
+                                boxShadow={'md'}
                             >
                                 <Text as="s" fontWeight={"bold"}>{todo["data"]}</Text>
+                                <Flex>
+                                    <IconButton
+                                        aria-label="Revive todo"
+                                        icon={<RepeatIcon />}
+                                        onClick={() => handleRevive(todo)}
+                                    />
+                                    <IconButton
+                                        aria-label="Delete todo"
+                                        icon={<DeleteIcon />}
+                                        ml="2"
+                                        onClick={() => handleDelete(todo)}
+                                    />
+                                </Flex>
                                 {/* <Editable isDisabled defaultValue={todo["data"]} fontWeight={"bold"} >
                                     <EditablePreview />
                                     <EditableInput disabled />

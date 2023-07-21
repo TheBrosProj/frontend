@@ -2,13 +2,14 @@ import { Box, Text, Flex, Link, Avatar, Button, Image, Grid, Menu, MenuButton, M
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { useAuth } from '@/lib/auth';
 
+
 export default function Navbar() {
     const auth = useAuth();
     const [isSmallScreen] = useMediaQuery("(max-width: 600px)");
     return (
         <Flex as="nav" align="center" justify="space-between" p={4} fontWeight={"extrabold"}>
             <Link href="/">
-                <Image src="./favicon.png" height="5vh" width="5vh"></Image>
+                <Image src="./favicon.png" h="12" w="12"></Image>
             </Link>
             {isSmallScreen ? (
                 <Menu>
@@ -18,43 +19,45 @@ export default function Navbar() {
                     <MenuList>
                         <MenuItem><Link href="/">Home</Link></MenuItem>
                         <MenuItem><Link href="/about">About</Link></MenuItem>
-                        <MenuItem><Link href="/contact">Contact</Link></MenuItem>
+                        <MenuItem><Link href="/profile">Profile</Link></MenuItem>
                     </MenuList>
                 </Menu>
             ) : (
                 <>
                     <Link href="/">Home</Link>
                     <Link href="/about">About</Link>
-                    <Link href="/contact">Contact</Link>
+                    <Link href="/profile">Profile</Link>
                 </>
             )}
-            {auth.user ? (
-                <Flex align="center">
-                            <Link href="/profile">
-                        <Avatar
-                            size="sm"
-                            name={auth.user.email}
-                            src={`https://api.dicebear.com/6.x/fun-emoji/svg?seed=${auth.user.uid}`}
-                            mr={2}
+            <Box>
+                {auth.user ? (
+                    <Flex align="center">
+                        <Link href="/profile">
+                            <Avatar
+                                size="sm"
+                                name={auth.user.email}
+                                src={`https://api.dicebear.com/6.x/fun-emoji/svg?seed=${auth.user.uid}`}
+                                mr={2}
                             />
-                            </Link>
-                            { !isSmallScreen && (
-                            <Link href="/profile">
-                        <Box mr={2}>{auth.user.email}</Box>
-                            </Link>
-                            )}
-                    <Button onClick={() => auth.signOut()}>Sign Out</Button>
-                </Flex>
-            ) : (
-                <Flex>
-                    <Link href="/login">
-                        <Button mr={4}>Login</Button>
-                    </Link>
-                    <Link href="/signup">
-                        <Button >Sign Up</Button>
-                    </Link>
-                </Flex>
-            )}
+                        </Link>
+                        {/* { !isSmallScreen && (
+                                <Link href="/profile">
+                                <Box mr={2}>{auth.user.email}</Box>
+                                </Link>
+                            )} */}
+                        <Button onClick={() => auth.signOut()}>Sign Out</Button>
+                    </Flex>
+                ) : (
+                    <Flex>
+                        <Link p="4" href="/login">
+                            Login
+                        </Link>
+                        <Link p="4" href="/signup">
+                            Sign Up
+                        </Link>
+                    </Flex>
+                )}
+            </Box>
         </Flex>
     );
 }

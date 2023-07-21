@@ -1,4 +1,19 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+module.exports = {
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(png|jpe?g|gif|mp3|wav)$/i,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            publicPath: '/_next/static/',
+            outputPath: 'static/',
+          },
+        },
+      ],
+    });
 
-module.exports = nextConfig
+    return config;
+  },
+};

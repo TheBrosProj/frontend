@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChakraProvider, Center, Spinner } from '@chakra-ui/react'; // Replace 'your-ui-library' with the actual library you're using
+import { ChakraProvider, Center, Flex, Spinner, Text } from '@chakra-ui/react'; // Replace 'your-ui-library' with the actual library you're using
 
 const LoadPage = ({ children }) => {
   const [domLoaded, setDomLoaded] = useState(false);
@@ -10,17 +10,22 @@ const LoadPage = ({ children }) => {
 
   return (
     <>
-    <ChakraProvider>
-    {
-      domLoaded ? (
-          <>{children}</>
+      <ChakraProvider>
+        {
+          domLoaded ? (
+            <>{children}</>
           ) : (
-            <Center mt={"50vh"}>
-          <Spinner size={"xl"}></Spinner>
-        </Center>
-      )
-    }
-    </ChakraProvider>
+            <>
+              <Center mt={"50vh"}>
+                <Spinner size={"xl"}></Spinner>
+              </Center>
+              <Center mt={"4"}>
+                <Text>if you are reading this, change your internet</Text>
+              </Center>
+            </>
+          )
+        }
+      </ChakraProvider>
     </>
   )
 };

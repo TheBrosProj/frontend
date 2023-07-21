@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Center, Input, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, Center, IconButton, Input, Stack, Text, Tooltip } from '@chakra-ui/react';
+import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark } from "@chakra-ui/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faStop, faEdit } from '@fortawesome/free-solid-svg-icons';
-// import chime from '../public/chime.mp3';
+import chime from '../public/chime.wav';
 
 const PomodoroTimer = () => {
     const [duration, setDuration] = useState(25);
     const [timeLeft, setTimeLeft] = useState(duration * 60);
     const [isRunning, setIsRunning] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    // const audioRef = useRef(null);
+    const [playing, setPlaying] = useState(false);
+    const [showTooltip, setShowTooltip] = useState(false)
+    const audio = new Audio(chime);
 
     useEffect(() => {
         if (isRunning) {
@@ -23,32 +26,54 @@ const PomodoroTimer = () => {
     useEffect(() => {
         if (timeLeft === 0) {
             setIsRunning(false);
-            // audioRef.current.play();
-            // play chime sound here
+            if (playing) {
+                audio.pause();
+            } else {
+                audio.loop = true;
+                audio.play();
+            }
+            setPlaying(!playing);
         }
     }, [timeLeft]);
 
+    const stopAudio = () => {
+        audio.pause();
+        audio.currentTime = 0;
+        setPlaying(false);
+    }
+
     const handleStart = () => {
+        setIsEditing(false)
         setIsRunning(true);
     };
 
     const handlePause = () => {
+        setIsEditing(false)
         setIsRunning(false);
     };
 
     const handleStop = () => {
+        setIsEditing(false)
         setIsRunning(false);
         setTimeLeft(duration * 60);
+        stopAudio();
     };
 
     const handleEdit = () => {
-        setIsEditing(true);
-        setIsRunning(false);
+        if(isEditing){
+            setIsEditing(false);
+        }
+        else{
+            setIsEditing(true);
+        }
     };
 
-    const handleDurationChange = (event) => {
-        setDuration(event.target.value);
-        setTimeLeft(event.target.value * 60);
+    const handleDurationChange = (value) => {
+        if (value > 0) {
+            setDuration(value);
+            setTimeLeft(value * 60);
+        }
+        setIsRunning(false);
     };
 
     const formatTime = (time) => {
@@ -57,52 +82,72 @@ const PomodoroTimer = () => {
         return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     };
 
+    const labelStyles = {
+        mt: '4',
+        ml: '-1',
+        fontSize: 'md',
+    }
+
     return (
         <Center>
-            {/* <audio ref={audioRef}>
-                <source src={chime} type="audio/mpeg" />
-            </audio> */}
             <Box
                 p="2"
                 m="2"
                 w='3xl'
+                h='200'
                 border="1px solid gray"
                 borderRadius="md"
                 boxShadow='lg'
             >
                 <Center>
                     <Stack direction="row" spacing={4}>
-                        <Button size={'lg'} onClick={handleStart} leftIcon={<FontAwesomeIcon icon={faPlay} />}>
+                        <IconButton size={'lg'} onClick={handleStart} icon={<FontAwesomeIcon icon={faPlay} />}>
                             {/* Start */}
-                        </Button>
-                        <Button size={'lg'} onClick={handlePause} leftIcon={<FontAwesomeIcon icon={faPause} />}>
+                        </IconButton>
+                        <IconButton size={'lg'} onClick={handlePause} icon={<FontAwesomeIcon icon={faPause} />}>
                             {/* Pause */}
-                        </Button>
-                        <Button size={'lg'} onClick={handleStop} leftIcon={<FontAwesomeIcon icon={faStop} />}>
+                        </IconButton>
+                        <IconButton size={'lg'} onClick={handleStop} icon={<FontAwesomeIcon icon={faStop} />}>
                             {/* Stop */}
-                        </Button>
-                        <Button size={'lg'} onClick={handleEdit} leftIcon={<FontAwesomeIcon icon={faEdit} />}>
+                        </IconButton>
+                        <IconButton size={'lg'} onClick={handleEdit} icon={<FontAwesomeIcon icon={faEdit} />}>
                             {/* Edit */}
-                        </Button>
+                        </IconButton>
                     </Stack>
                 </Center>
-                <Center>
-
+                <Center mt={'6'}>
                     {isEditing ? (
-                        <Input
-                            fontSize={"4xl"}
-                            m={4}
-                            value={duration}
-                            onChange={handleDurationChange}
-                            onBlur={() => setIsEditing(false)}
-                            autoFocus
-                        />
+                        <Slider colorScheme='gray' marginY={12} marginX={6} aria-label='time-slider'
+                            min={10} max={70}
+                            // onBlurCapture={setIsEditing(false)}
+                            onChange={(val) => handleDurationChange(val)}
+                            onMouseEnter={() => setShowTooltip(true)}
+                            onMouseLeave={() => setShowTooltip(false)}
+                        >
+                            <SliderMark value={20}  {...labelStyles} >20</SliderMark>
+                            <SliderMark value={40}  {...labelStyles} >40</SliderMark>
+                            <SliderMark value={60}  {...labelStyles} >60</SliderMark>
+                            <SliderTrack>
+                                <SliderFilledTrack />
+                            </SliderTrack>
+                            <Tooltip
+                                hasArrow
+                                bg='gray.600'
+                                color='white'
+                                placement='top'
+                                p={'2'}
+                                isOpen={showTooltip}
+                                label={`${duration}min`}
+                            >
+                                <SliderThumb />
+                            </Tooltip>
+                        </Slider>
                     ) : (
-                        <>
-                            <Text fontSize="4xl" mt={4}>
+                        <Box textAlign={'left'}>
+                            <Text fontSize="6xl" fontWeight={'bold'} mt={1} textAlign={'left'}>
                                 {formatTime(timeLeft)}
                             </Text>
-                        </>
+                        </Box>
                         // <Text fontSize="xl" mb={4} onClick={handleEdit}>
                         //   Duration: {duration} minutes
                         // </Text>

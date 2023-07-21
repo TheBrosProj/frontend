@@ -41,7 +41,9 @@ const Notes = () => {
                 boxShadow='lg'
                 overflowY="auto"
             >
-                <InputGroup p={'2'} marginBottom={'2'}>
+                <InputGroup
+                    p={'4'} marginBottom={'2'}
+                    >
                     <Input
                         placeholder="Enter a new note"
                         value={input}

@@ -9,7 +9,7 @@ import Navbar from '@/components/Navbar';
 const ContactPage = () => {
     return (
         <LoadPage>
-            <Box p={6} minH={'100vh'} display="flex" flexDirection="column">
+            <Box minH={'100vh'} display="flex" flexDirection="column">
                 <Navbar></Navbar>
                 <Box maxW="md" mx="auto" mt={8} p={4}>
                 <Heading as="h1" mb={4} size="xl" color="gray.800">
@@ -19,7 +19,8 @@ const ContactPage = () => {
                     We'd love to hear from you! Fill in the form below to get in touch.
                 </Text>
                 </Box>
-                {/* <FormControl mb={4}>
+                <Box boxSize={"lg"} mx="auto" mt={8} p={4} display="flex" flexDirection="column" textAlign={"center"}>
+                <FormControl mb={4}>
                     <FormLabel>Name</FormLabel>
                     <Input type="text" placeholder="Your Name" />
                 </FormControl>
@@ -33,7 +34,8 @@ const ContactPage = () => {
                 </FormControl>
                 <Button colorScheme="gray" variant="solid">
                     Send Message
-                </Button> */}
+                </Button>
+                </Box>
             <Footer></Footer>
             </Box>
         </LoadPage>
