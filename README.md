@@ -1,12 +1,12 @@
 # frontend
 frontend for a productivity application
 
+## structure
 - [x] auth
 - [ ] db
 - [ ] API config
 
-
-Tools 
+## Tools 
 - [x] Pomodoro Timer
 - [x] Notes
 - [x] Todo  
