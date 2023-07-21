@@ -2,79 +2,73 @@ import React, { useState } from "react";
 import {
     Box,
     Center,
-    Checkbox,
-    CheckboxGroup,
-    Editable,
-    EditablePreview,
-    EditableInput,
-    Flex,
     IconButton,
     Input,
     InputGroup,
     InputRightElement,
+    Grid,
+    GridItem,
+    SimpleGrid,
 } from "@chakra-ui/react";
 import { CheckIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CustomEditable } from "./CustomEditable";
 
 const Notes = () => {
-    const [todos, setTodos] = useState([]);
+    const [notes, setNotes] = useState([]);
     const [input, setInput] = useState("");
 
-    const handleAddTodo = () => {
+    const handleAddNote = () => {
         if (input) {
-            setTodos([...todos, input]);
+            setNotes([...notes, input]);
             setInput("");
         }
     };
 
-    const handleDeleteTodo = (todo) => {
-        setTodos(todos.filter((t) => t !== todo));
+    const handleDeleteNote = (note) => {
+        setNotes(notes.filter((t) => t !== note));
     };
 
     return (
         <Center>
-
             <Box
-                w="80vw"
-                h="40vh"
-                p="4"
+                p="2"
+                m="2"
+                w='3xl'
                 border="1px solid gray"
                 borderRadius="md"
+                boxShadow='lg'
                 overflowY="auto"
             >
-                <InputGroup>
+                <InputGroup p={'2'} marginBottom={'2'}>
                     <Input
-                        placeholder="Enter a new task"
+                        placeholder="Enter a new note"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
+                        handleSubmit={handleAddNote}
+                        h={'24'}
                     />
                     <InputRightElement>
                         <IconButton
-                            aria-label="Add todo"
+                            aria-label="Add Notes"
                             icon={<FontAwesomeIcon icon={faPlus} />}
-                            onClick={handleAddTodo}
+                            onClick={handleAddNote}
                         />
                     </InputRightElement>
                 </InputGroup>
-                <CheckboxGroup colorScheme="gray" mt="4">
-                    {todos.map((todo) => (
-                        <Flex key={todo} align="center" m="2" justify="space-between">
-                            <Editable defaultValue={todo} fontWeight={"bold"}>
-                                <EditablePreview />
-                                <EditableInput />
-                            </Editable>
-                            <Flex>
-                                <IconButton
-                                    aria-label="Delete todo"
-                                    icon={<DeleteIcon />}
-                                    ml="2"
-                                    onClick={() => handleDeleteTodo(todo)}
-                                />
-                            </Flex>
-                        </Flex>
+                <SimpleGrid minChildWidth='xs' spacing='4' p={'2'}>
+                    {notes.map((note) => (
+                        // <Flex key={note} align="center" m="2">
+                        <Box key={note} 
+                        // border={'1px solid gray'} 
+                        boxShadow={'md'} 
+                        borderRadius={'md'}>
+                            <CustomEditable  content={note} handleDelete={() => {handleDeleteNote(note)}}></CustomEditable>
+                        </Box>
+                        // </Flex>
                     ))}
-                </CheckboxGroup>
+                </SimpleGrid>
             </Box>
         </Center>
     );

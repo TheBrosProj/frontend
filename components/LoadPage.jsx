@@ -12,7 +12,6 @@ const LoadPage = ({ children }) => {
     <>
     <ChakraProvider>
     {
-
       domLoaded ? (
           <>{children}</>
           ) : (

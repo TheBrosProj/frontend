@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+    Text,
     Box,
     Center,
     Checkbox,
@@ -23,63 +24,96 @@ const TodoList = () => {
 
     const handleAddTodo = () => {
         if (input) {
-            setTodos([...todos, input]);
+            setTodos([...todos, { "data": input, "state": "active" }]);
             setInput("");
         }
+        console.log(todos);
     };
 
-    const handleDeleteTodo = (todo) => {
+    const handleDelete = (todo) => {
         setTodos(todos.filter((t) => t !== todo));
     };
+
+    const handleCompletion = (todo) => {
+        setTodos([... todos.filter(t => t["data"] !== todo["data"]), { "data": todo["data"], "state": "completed" }])
+    }
 
     return (
         <Center>
 
             <Box
-                w="80vw"
-                h="40vh"
-                p="4"
+                p="2"
+                m="2"
+                w={'3xl'}
                 border="1px solid gray"
                 borderRadius="md"
+                boxShadow='lg'
                 overflowY="auto"
             >
-                <InputGroup>
+                <InputGroup
+                    p={'4'} marginBottom={'2'}
+                >
                     <Input
                         placeholder="Enter a new task"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
+                        onSubmit={handleAddTodo}
                     />
                     <InputRightElement>
                         <IconButton
+                            size={'sm'}
                             aria-label="Add todo"
                             icon={<FontAwesomeIcon icon={faPlus} />}
                             onClick={handleAddTodo}
                         />
                     </InputRightElement>
                 </InputGroup>
-                <CheckboxGroup colorScheme="gray" mt="4">
-                    {todos.map((todo) => (
-                        <Flex key={todo} align="center" m="2" justify="space-between">
-                            <Editable defaultValue={todo} fontWeight={"bold"}>
-                                <EditablePreview />
-                                <EditableInput />
-                            </Editable>
-                            <Flex>
-                                <IconButton
-                                    aria-label="Complete todo"
-                                    icon={<CheckIcon />}
-                                    onClick={() => handleDeleteTodo(todo)}
-                                />
-                                <IconButton
-                                    aria-label="Delete todo"
-                                    icon={<DeleteIcon />}
-                                    ml="2"
-                                    onClick={() => handleDeleteTodo(todo)}
-                                />
+                <Box colorScheme="gray" mt="4">
+                    {todos
+                        .filter(todo => todo["state"] === 'active' )
+                        .map((todo) => (
+                            <Flex
+                                key={todo["data"]} align="center" m="2" p="2" justify="space-between"
+                                // border={'1px solid gray'} 
+                                borderRadius={'md'}
+                                boxShadow={'md'}
+                            >
+                                <Editable defaultValue={todo["data"]} fontWeight={"bold"}>
+                                    <EditablePreview />
+                                    <EditableInput />
+                                </Editable>
+                                <Flex>
+                                    <IconButton
+                                        aria-label="Complete todo"
+                                        icon={<CheckIcon />}
+                                        onClick={() => handleCompletion(todo)}
+                                    />
+                                    <IconButton
+                                        aria-label="Delete todo"
+                                        icon={<DeleteIcon />}
+                                        ml="2"
+                                        onClick={() => handleDelete(todo)}
+                                    />
+                                </Flex>
                             </Flex>
-                        </Flex>
-                    ))}
-                </CheckboxGroup>
+                        ))}
+                    {todos
+                        .filter((t) => t["state"] === "completed" )
+                        .map((todo) => (
+                            <Flex
+                                key={todo["data"]} align="center" m="2" paddingY="4" paddingX="2" justify="space-between"
+                                // border={'1px solid gray'} 
+                                borderRadius={'md'}
+                                boxShadow={'md'} 
+                            >
+                                <Text as="s" fontWeight={"bold"}>{todo["data"]}</Text>
+                                {/* <Editable isDisabled defaultValue={todo["data"]} fontWeight={"bold"} >
+                                    <EditablePreview />
+                                    <EditableInput disabled />
+                                </Editable> */}
+                            </Flex>
+                        ))}
+                </Box>
             </Box>
         </Center>
     );

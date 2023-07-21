@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Box, Button, Center, Input, Stack, Text } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faStop, faEdit } from '@fortawesome/free-solid-svg-icons';
+// import chime from '../public/chime.mp3';
 
 const PomodoroTimer = () => {
     const [duration, setDuration] = useState(25);
     const [timeLeft, setTimeLeft] = useState(duration * 60);
     const [isRunning, setIsRunning] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    // const audioRef = useRef(null);
 
     useEffect(() => {
         if (isRunning) {
@@ -21,6 +23,7 @@ const PomodoroTimer = () => {
     useEffect(() => {
         if (timeLeft === 0) {
             setIsRunning(false);
+            // audioRef.current.play();
             // play chime sound here
         }
     }, [timeLeft]);
@@ -55,46 +58,58 @@ const PomodoroTimer = () => {
     };
 
     return (
-        <Box>
-            <Center>
-                <Stack direction="row" spacing={4}>
-                    <Button onClick={handleStart} leftIcon={<FontAwesomeIcon icon={faPlay} />}>
-                        Start
-                    </Button>
-                    <Button onClick={handlePause} leftIcon={<FontAwesomeIcon icon={faPause} />}>
-                        Pause
-                    </Button>
-                    <Button onClick={handleStop} leftIcon={<FontAwesomeIcon icon={faStop} />}>
-                        Stop
-                    </Button>
-                    <Button onClick={handleEdit} leftIcon={<FontAwesomeIcon icon={faEdit} />}>
-                        Edit
-                    </Button>
-                </Stack>
-            </Center>
-            <Center>
+        <Center>
+            {/* <audio ref={audioRef}>
+                <source src={chime} type="audio/mpeg" />
+            </audio> */}
+            <Box
+                p="2"
+                m="2"
+                w='3xl'
+                border="1px solid gray"
+                borderRadius="md"
+                boxShadow='lg'
+            >
+                <Center>
+                    <Stack direction="row" spacing={4}>
+                        <Button size={'lg'} onClick={handleStart} leftIcon={<FontAwesomeIcon icon={faPlay} />}>
+                            {/* Start */}
+                        </Button>
+                        <Button size={'lg'} onClick={handlePause} leftIcon={<FontAwesomeIcon icon={faPause} />}>
+                            {/* Pause */}
+                        </Button>
+                        <Button size={'lg'} onClick={handleStop} leftIcon={<FontAwesomeIcon icon={faStop} />}>
+                            {/* Stop */}
+                        </Button>
+                        <Button size={'lg'} onClick={handleEdit} leftIcon={<FontAwesomeIcon icon={faEdit} />}>
+                            {/* Edit */}
+                        </Button>
+                    </Stack>
+                </Center>
+                <Center>
 
-                {isEditing ? (
-                    <Input
-                        fontSize={"4xl"}
-                        m={4}
-                        value={duration}
-                        onChange={handleDurationChange}
-                        onBlur={() => setIsEditing(false)}
-                        autoFocus
-                    />
-                ) : (
-                    <>
-                        <Text fontSize="4xl" mt={4}>
-                            {formatTime(timeLeft)}
-                        </Text>
-                    </>
-                    // <Text fontSize="xl" mb={4} onClick={handleEdit}>
-                    //   Duration: {duration} minutes
-                    // </Text>
-                )}
-            </Center>
-        </Box>
+                    {isEditing ? (
+                        <Input
+                            fontSize={"4xl"}
+                            m={4}
+                            value={duration}
+                            onChange={handleDurationChange}
+                            onBlur={() => setIsEditing(false)}
+                            autoFocus
+                        />
+                    ) : (
+                        <>
+                            <Text fontSize="4xl" mt={4}>
+                                {formatTime(timeLeft)}
+                            </Text>
+                        </>
+                        // <Text fontSize="xl" mb={4} onClick={handleEdit}>
+                        //   Duration: {duration} minutes
+                        // </Text>
+                    )}
+                </Center>
+            </Box>
+        </Center>
     );
 };
 

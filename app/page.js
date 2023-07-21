@@ -1,6 +1,6 @@
 // pages/index.jsx
 'use client'
-import { AbsoluteCenter, Text, Box, Center } from '@chakra-ui/react';
+import { AbsoluteCenter, Text, Box, Center, Grid, GridItem } from '@chakra-ui/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ImageCarousel from '@/components/Carousel';
@@ -18,22 +18,9 @@ export default function Home() {
       <LoadPage>
         <Box minHeight="100vh" display="flex" flexDirection="column">
           <Navbar />
+          <PomodoroTimer />
+          <TodoList></TodoList>
           <Notes></Notes>
-          {/* <ImageCarousel></ImageCarousel> */}
-          {/* <PomodoroTimer
-            timerDuration={25}
-            shortBreakDuration={5}
-            longBreakDuration={15}
-            bg="tomato"
-            p={4}
-            color="white"
-          /> */}
-          {/* <TodoList></TodoList> */}
-          {/* <Box maxW="md" mx="auto" mt={8} p={4}>
-              <h1>Welcome to the Homepage!</h1>
-              <p>Content of your homepage goes here.</p>
-            </Box> */}
-          <Footer />
         </Box>
       </LoadPage>
     </>
