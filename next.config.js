@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
+  output: 'export',
   webpack: (config) => {
     config.module.rules.push({
       test: /\.(png|jpe?g|gif|mp3|wav)$/i,
@@ -17,3 +18,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = nextConfig;

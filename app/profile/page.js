@@ -5,9 +5,6 @@ import { Box, Heading, Text } from '@chakra-ui/react';
 import { auth } from '@/lib/firebase';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import LoadPage from '@/components/LoadPage';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -26,9 +23,7 @@ export default function Profile() {
 
   return (
     <>
-    <LoadPage>
-    <Box minH="100vh">
-    <Navbar></Navbar>
+    <Box minH="80vh">
     <Box maxW="md" mx="auto" mt={8} p={4}>
       <Heading mb={4}>Profile</Heading>
       {user ? (
@@ -55,7 +50,6 @@ export default function Profile() {
       </Box>
     {/* <Footer></Footer> */}
     </Box>
-    </LoadPage>
     </>
   );
 }

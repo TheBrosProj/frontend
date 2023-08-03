@@ -1,16 +1,12 @@
 'use client'
-import LoadPage from '@/components/LoadPage';
 import React from 'react';
-import { Box, Grid, Flex, Link, Heading, Text, FormControl, FormLabel, Input, Textarea, Button } from '@chakra-ui/react';
+import { Box, Grid, Flex, Heading, Text, FormControl, FormLabel, Input, Textarea, Button } from '@chakra-ui/react';
 import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
 
 
 const ContactPage = () => {
     return (
-        <LoadPage>
             <Box minH={'100vh'} display="flex" flexDirection="column">
-                <Navbar></Navbar>
                 <Box maxW="md" mx="auto" mt={8} p={4}>
                 <Heading as="h1" mb={4} size="xl" color="gray.800">
                     Contact Us
@@ -38,7 +34,6 @@ const ContactPage = () => {
                 </Box>
             <Footer></Footer>
             </Box>
-        </LoadPage>
     );
 };
 

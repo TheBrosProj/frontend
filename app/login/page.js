@@ -13,7 +13,6 @@ import {
     Button,
 } from '@chakra-ui/react';
 import { auth } from '@/lib/firebase';
-import LoadPage from '@/components/LoadPage';
 
 export default function Login() {
     const router = useRouter();
@@ -43,7 +42,6 @@ export default function Login() {
     };
 
     return (
-        <LoadPage>
             <Box maxW="sm" mx="auto" mt={8} p={4}>
                 <Heading mb={4}>Login</Heading>
                 <form onSubmit={handleLogin}>
@@ -70,7 +68,6 @@ export default function Login() {
                     </Button>
                 </form>
             </Box>
-        </LoadPage>
 
     );
 }

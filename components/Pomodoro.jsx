@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Center, IconButton, Input, Stack, Text, Tooltip } from '@chakra-ui/react';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark } from "@chakra-ui/react";
@@ -12,7 +13,7 @@ const PomodoroTimer = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [playing, setPlaying] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false)
-    const audio = new Audio(chime);
+    // const audio = new Audio(chime);
 
     useEffect(() => {
         if (isRunning) {
@@ -23,18 +24,18 @@ const PomodoroTimer = () => {
         }
     }, [isRunning]);
 
-    useEffect(() => {
-        if (timeLeft === 0) {
-            setIsRunning(false);
-            if (playing) {
-                audio.pause();
-            } else {
-                audio.loop = true;
-                audio.play();
-            }
-            setPlaying(!playing);
-        }
-    }, [timeLeft]);
+    // useEffect(() => {
+    //     if (timeLeft === 0) {
+    //         setIsRunning(false);
+    //         if (playing) {
+    //             audio.pause();
+    //         } else {
+    //             audio.loop = true;
+    //             audio.play();
+    //         }
+    //         setPlaying(!playing);
+    //     }
+    // }, [timeLeft]);
 
     const stopAudio = () => {
         audio.pause();
@@ -56,7 +57,7 @@ const PomodoroTimer = () => {
         setIsEditing(false)
         setIsRunning(false);
         setTimeLeft(duration * 60);
-        stopAudio();
+        // stopAudio();
     };
 
     const handleEdit = () => {

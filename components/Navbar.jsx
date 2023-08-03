@@ -1,13 +1,19 @@
-import { Box, Text, Flex, Link, Avatar, Button, Image, Grid, Menu, MenuButton, MenuList, MenuItem, useMediaQuery } from '@chakra-ui/react';
+'use client'
+import { Box, Text, Flex, Avatar, Button, Image, Grid, Menu, MenuButton, MenuList, MenuItem, useMediaQuery, useColorMode, IconButton } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon, faPlay, faSun } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
     const auth = useAuth();
+    const router = useRouter();
+    const { colorMode, toggleColorMode } = useColorMode()
     const [isSmallScreen] = useMediaQuery("(max-width: 600px)");
     return (
-        <Flex as="nav" align="center" justify="space-between" p={4} fontWeight={"extrabold"}>
+        <Flex as="nav" align="center" justify="space-around" p={4} fontWeight={"extrabold"}>
             <Link href="/">
                 <Image src="./favicon.png" h="12" w="12"></Image>
             </Link>
@@ -17,9 +23,21 @@ export default function Navbar() {
                         Menu
                     </MenuButton>
                     <MenuList>
-                        <MenuItem><Link href="/">Home</Link></MenuItem>
-                        <MenuItem><Link href="/about">About</Link></MenuItem>
-                        <MenuItem><Link href="/profile">Profile</Link></MenuItem>
+                        <MenuItem onClick={() => router.push("/")}>Home</MenuItem>
+                        <MenuItem onClick={() => router.push("/about")}>About</MenuItem>
+                        <MenuItem onClick={() => router.push("/profile")}>Profile</MenuItem>
+                        {auth.user ? (
+                            <>
+                                <MenuItem onClick={() => router.push("/profile")}>Account</MenuItem>
+                                <MenuItem onClick={() => router.push("/logout")}>Log Out</MenuItem>
+                            </>
+                        ) : (
+                            <>
+                                <MenuItem onClick={() => router.push("/login")}>Login</MenuItem>
+                                <MenuItem onClick={() => router.push("/signup")}>Signin</MenuItem>
+                            </>
+                        )
+                        }
                     </MenuList>
                 </Menu>
             ) : (
@@ -29,35 +47,40 @@ export default function Navbar() {
                     <Link href="/profile">Profile</Link>
                 </>
             )}
-            <Box>
-                {auth.user ? (
-                    <Flex align="center">
-                        <Link href="/profile">
-                            <Avatar
-                                size="sm"
-                                name={auth.user.email}
-                                src={`https://api.dicebear.com/6.x/fun-emoji/svg?seed=${auth.user.uid}`}
-                                mr={2}
-                            />
-                        </Link>
-                        {/* { !isSmallScreen && (
+            <IconButton onClick={toggleColorMode} icon={<FontAwesomeIcon icon={colorMode === 'light' ? faMoon : faSun} />}>
+                Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+            </IconButton>
+            {!isSmallScreen &&
+                <Box>
+                    {auth.user ? (
+                        <Flex align="center">
+                            <Link href="/profile">
+                                <Avatar
+                                    size="sm"
+                                    name={auth.user.email}
+                                    src={`https://api.dicebear.com/6.x/fun-emoji/svg?seed=${auth.user.uid}`}
+                                    mr={2}
+                                />
+                            </Link>
+                            {/* { !isSmallScreen && (
                                 <Link href="/profile">
                                 <Box mr={2}>{auth.user.email}</Box>
                                 </Link>
                             )} */}
-                        <Button onClick={() => auth.signOut()}>Sign Out</Button>
-                    </Flex>
-                ) : (
-                    <Flex>
-                        <Link p="4" href="/login">
-                            Login
-                        </Link>
-                        <Link p="4" href="/signup">
-                            Sign Up
-                        </Link>
-                    </Flex>
-                )}
-            </Box>
+                            <Button onClick={() => auth.signOut()}>Sign Out</Button>
+                        </Flex>
+                    ) : (
+                        <Flex gap={'12'}>
+                            <Button onClick={() => router.push("/login")}>
+                                Login
+                            </Button>
+                            <Button onClick={() => router.push("/signup")}>
+                                Signup
+                            </Button>
+                        </Flex>
+                    )}
+                </Box>
+            }
         </Flex>
     );
 }
