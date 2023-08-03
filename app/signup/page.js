@@ -55,7 +55,7 @@ export default function Signup() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </FormControl>
-                    <Button type="submit" colorScheme="gray" mb={4}>
+                    <Button aria-label='sign up' type="submit" colorScheme="gray" mb={4}>
                         Sign Up
                     </Button>
                 </form>

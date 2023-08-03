@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Box, Heading, Text } from '@chakra-ui/react';
 import { auth } from '@/lib/firebase';
-import { ChakraProvider } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
 
 export default function Profile() {

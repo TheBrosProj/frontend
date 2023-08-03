@@ -102,16 +102,16 @@ const PomodoroTimer = () => {
             >
                 <Center>
                     <Stack direction="row" spacing={4}>
-                        <IconButton size={'lg'} onClick={handleStart} icon={<FontAwesomeIcon icon={faPlay} />}>
+                        <IconButton aria-label='play timer' size={'lg'} onClick={handleStart} icon={<FontAwesomeIcon icon={faPlay} />}>
                             {/* Start */}
                         </IconButton>
-                        <IconButton size={'lg'} onClick={handlePause} icon={<FontAwesomeIcon icon={faPause} />}>
+                        <IconButton aria-label='pause timer' size={'lg'} onClick={handlePause} icon={<FontAwesomeIcon icon={faPause} />}>
                             {/* Pause */}
                         </IconButton>
-                        <IconButton size={'lg'} onClick={handleStop} icon={<FontAwesomeIcon icon={faStop} />}>
+                        <IconButton aria-label='stop timer' size={'lg'} onClick={handleStop} icon={<FontAwesomeIcon icon={faStop} />}>
                             {/* Stop */}
                         </IconButton>
-                        <IconButton size={'lg'} onClick={handleEdit} icon={<FontAwesomeIcon icon={faEdit} />}>
+                        <IconButton aria-label='edit timer duration' size={'lg'} onClick={handleEdit} icon={<FontAwesomeIcon icon={faEdit} />}>
                             {/* Edit */}
                         </IconButton>
                     </Stack>

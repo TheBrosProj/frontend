@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import { Box, Grid, Flex, Heading, Text, FormControl, FormLabel, Input, Textarea, Button } from '@chakra-ui/react';
+import { Box, Heading, Text, FormControl, FormLabel, Input, Textarea, Button } from '@chakra-ui/react';
 import Footer from '@/components/Footer';
 
 
@@ -28,7 +28,7 @@ const ContactPage = () => {
                     <FormLabel>Message</FormLabel>
                     <Textarea placeholder="Your Message" />
                 </FormControl>
-                <Button colorScheme="gray" variant="solid">
+                <Button aria-label='send message' colorScheme="gray" variant="solid">
                     Send Message
                 </Button>
                 </Box>

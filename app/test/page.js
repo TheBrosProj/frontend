@@ -37,7 +37,7 @@ const MyPage = () => {
           <input type="text" name="input2" value={input2} onChange={handleInputChange} />
         </label>
         <br />
-        <button type="submit">Save</button>
+        <button aria-label='submit' type="submit">Save</button>
       </form>
     </div>
   );

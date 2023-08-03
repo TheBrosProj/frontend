@@ -11,7 +11,6 @@ const LoadPage = ({ children }) => {
 
   return (
     <Box>
-
       {
         domLoaded ? (
           <>{children}</>

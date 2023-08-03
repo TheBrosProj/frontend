@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
-    ChakraProvider,
     useToast,
     Box,
     Heading,
@@ -61,7 +60,7 @@ export default function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </FormControl>
-                    <Button
+                    <Button aria-label='Log in'
                     isLoading={isLoading}
                      type="submit" colorScheme="gray" mb={4}>
                         Log In

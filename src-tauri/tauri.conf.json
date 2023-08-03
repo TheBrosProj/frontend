@@ -39,7 +39,7 @@
         "signingIdentity": null
       },
       "resources": [],
-      "shortDescription": "",
+      "shortDescription": "Notes application",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,
