@@ -11,7 +11,7 @@ export default function Navbar() {
     const router = useRouter();
     const { colorMode, toggleColorMode } = useColorMode()
     const [isSmallScreen] = useMediaQuery("(max-width: 600px)");
-    console.log(auth);
+    // console.log(auth);
     return (
         <Flex as="nav" align="center" justify="space-around" p={4} fontWeight={"extrabold"}>
             <Link href="/">

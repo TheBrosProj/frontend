@@ -28,7 +28,7 @@ const TodoList = () => {
             setTodos([...todos, { "data": input, "state": "active" , "time" : moment.now() }]);
             setInput("");
         }
-        console.log(todos);
+        // console.log(todos);
     };
 
     const handleDelete = (todo) => {

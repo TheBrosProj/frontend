@@ -1,3 +1,4 @@
+'use client'
 import { Center, Spinner, Text } from "@chakra-ui/react"
 
 const LoadingAnimation = () => {

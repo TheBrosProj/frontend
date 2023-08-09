@@ -1,19 +1,13 @@
 // pages/index.jsx
 'use client'
-import PomodoroTimer from '@/components/Pomodoro';
-import TodoList from '@/components/ToDo';
-import Notes from '@/components/Notes';
 import { Box } from '@chakra-ui/react';
 import Summarizer from '@/components/Summarizer';
 
 
-export default function Home() {
+export default function Summarize() {
   return (
     <>
       <Box minHeight="100vh" display="flex" flexDirection="column">
-        <PomodoroTimer />
-        <TodoList></TodoList>
-        <Notes></Notes>
         <Summarizer></Summarizer>
       </Box>
     </>
