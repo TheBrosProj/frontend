@@ -61,6 +61,11 @@ const TodoList = () => {
                         placeholder="Enter a new task"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={e=> {
+                            if (e.key === 'Enter') {
+                               handleAddTodo
+                            }
+                         }}
                         onSubmit={handleAddTodo}
                     />
                     <InputRightElement>

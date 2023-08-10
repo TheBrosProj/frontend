@@ -3,19 +3,25 @@
 import PomodoroTimer from '@/components/Pomodoro';
 import TodoList from '@/components/ToDo';
 import Notes from '@/components/Notes';
-import { Box } from '@chakra-ui/react';
+import { Box, SimpleGrid } from '@chakra-ui/react';
 import Summarizer from '@/components/Summarizer';
 
 
 export default function Home() {
   return (
     <>
-      <Box minHeight="100vh" display="flex" flexDirection="column">
-        <PomodoroTimer />
-        <TodoList></TodoList>
-        <Notes></Notes>
-        <Summarizer></Summarizer>
-      </Box>
+      <SimpleGrid minChildWidth={'md'} spacing={'xs'}>
+        <Box>
+          <PomodoroTimer />
+          <Summarizer></Summarizer>
+        </Box>
+          <Box>
+            <TodoList></TodoList>
+          </Box>
+          <Box>
+            <Notes></Notes>
+          </Box>
+      </SimpleGrid>
     </>
   );
 }

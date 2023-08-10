@@ -100,7 +100,7 @@ const PomodoroTimer = () => {
                 borderRadius="md"
                 boxShadow='lg'
             >
-                <Center>
+                <Center m={'4'}>
                     <Stack direction="row" spacing={4}>
                         <IconButton aria-label='play timer' size={'lg'} onClick={handleStart} icon={<FontAwesomeIcon icon={faPlay} />}>
                             {/* Start */}
@@ -116,7 +116,7 @@ const PomodoroTimer = () => {
                         </IconButton>
                     </Stack>
                 </Center>
-                <Center mt={'6'}>
+                <Center mt={'4'}>
                     {isEditing ? (
                         <Slider colorScheme='gray' marginY={12} marginX={6} aria-label='time-slider'
                             min={10} max={70}

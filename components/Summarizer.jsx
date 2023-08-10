@@ -4,10 +4,8 @@ import {
     Box,
     Button,
     Center,
-    IconButton,
     Input,
     InputGroup,
-    InputRightElement,
     Slider,
     SliderFilledTrack,
     SliderMark,
@@ -17,10 +15,7 @@ import {
     Textarea,
     Tooltip,
 } from "@chakra-ui/react";
-import { faGears } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Configuration, OpenAIApi } from "openai"; // Import OpenAI classes
-// import { getSubtitles } from 'youtube-captions-scraper';
 const labelStyles = {
     mt: '4',
     ml: '-1',
@@ -31,10 +26,10 @@ const labelStyles = {
 
 const Summarizer = () => {
     const [input, setInput] = useState("");
-    const [summary, setSummary] = useState(""); // State to hold the generated summary
+    const [summary, setSummary] = useState(null); // State to hold the generated summary
     const [apikey, setApikey] = useState(null); // State to hold the generated summary
     const [word, setWord] = useState(100); // State to hold the generated summary
-    const [showTooltip, setShowTooltip] = useState(false)
+    const [showTooltip, setShowTooltip] = useState(false);
 
     const handleSubmit = async () => {
 
@@ -44,15 +39,6 @@ const Summarizer = () => {
         });
         const openai = new OpenAIApi(configuration);
 
-        // Call the OpenAI API to generate the summary
-
-        // getSubtitles({
-        // videoID: 'mQfnOCHoCNM', // youtube video id
-        // lang: 'en' // default: `en`
-        // }).then(captions => {
-        // console.log(captions);
-        // });
-        // setSummary(transcript);
         console.log(word);
         console.log(input);
         console.log(apikey);
@@ -83,8 +69,6 @@ const Summarizer = () => {
                     boxShadow='lg'
                     overflowY="auto"
                 >
-
-
                     <InputGroup
                         p={'4'} marginBottom={'2'}
                     >
@@ -95,7 +79,6 @@ const Summarizer = () => {
                         />
                     </InputGroup>
                     <Center>
-
                         <Textarea
                             w={'md'}
                             h={'36'}
@@ -105,14 +88,6 @@ const Summarizer = () => {
                             onSubmit={handleSubmit}
                         />
                     </Center>
-                    {/* <InputRightElement>
-                            <IconButton
-                                // size={'sm'}
-                                aria-label="summarize selection"
-                                icon={<FontAwesomeIcon icon={faGears} />}
-                                onClick={handleSubmit}
-                            />
-                        </InputRightElement> */}
                     <Center m={4} pt={4}>
                         <Slider
                             w={'md'}
@@ -138,8 +113,6 @@ const Summarizer = () => {
                             </SliderTrack>
                             <Tooltip
                                 hasArrow
-                                bg='gray.700'
-                                color='white'
                                 placement='top'
                                 isOpen={showTooltip}
                                 label={`${word} words`}
@@ -164,8 +137,7 @@ const Summarizer = () => {
                         boxShadow='lg'
                         overflowY="auto"
                     >
-                        {/* Display the generated summary */}
-                        <Text>
+                        <Text m={'4'}>
                             {summary}
                         </Text>
                     </Box>

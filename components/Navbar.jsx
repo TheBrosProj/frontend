@@ -23,9 +23,9 @@ export default function Navbar() {
                         Menu
                     </MenuButton>
                     <MenuList>
-                        <MenuItem aria-label='about' onClick={() => router.push("/about")}>About</MenuItem>
-                        <MenuItem aria-label='profile' onClick={() => router.push("/profile")}>Profile</MenuItem>
                         <MenuItem aria-label='home' onClick={() => router.push("/")}>Home</MenuItem>
+                        <MenuItem aria-label='profile' onClick={() => router.push("/profile")}>Profile</MenuItem>
+                        <MenuItem aria-label='about' onClick={() => router.push("/about")}>About</MenuItem>
                         {auth.currentUser ? (
                             <>
                                 <MenuItem aria-label='profile' onClick={() => router.push("/profile")}>Account</MenuItem>
@@ -33,8 +33,8 @@ export default function Navbar() {
                             </>
                         ) : (
                             <>
-                                <MenuItem aria-label='login' onClick={() => router.push("/login")}>Login</MenuItem>
-                                <MenuItem aria-label='login' onClick={() => router.push("/signup")}>Signin</MenuItem>
+                                <MenuItem aria-label='login' onClick={() => router.push("/login")}>Log In</MenuItem>
+                                <MenuItem aria-label='signup' onClick={() => router.push("/signup")}>Sign Up</MenuItem>
                             </>
                         )
                         }
