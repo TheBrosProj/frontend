@@ -10,18 +10,10 @@ import Summarizer from '@/components/Summarizer';
 export default function Home() {
   return (
     <>
-      <SimpleGrid minChildWidth={'md'} spacing={'xs'}>
-        <Box>
-          <PomodoroTimer />
-          <Summarizer></Summarizer>
-        </Box>
-          <Box>
-            <TodoList></TodoList>
-          </Box>
-          <Box>
-            <Notes></Notes>
-          </Box>
-      </SimpleGrid>
+      <PomodoroTimer />
+      <Summarizer></Summarizer>
+      <TodoList></TodoList>
+      <Notes></Notes>
     </>
   );
 }

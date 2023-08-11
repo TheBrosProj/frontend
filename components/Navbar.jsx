@@ -49,7 +49,7 @@ export default function Navbar() {
                     <Link aria-label='profile' href="/profile">Profile</Link>
                 </>
             )}
-            <IconButton aria-label='toggle color theme' onClick={toggleColorMode} icon={<FontAwesomeIcon icon={colorMode === 'light' ? faMoon : faSun} />}>
+            <IconButton m={'1'} aria-label='toggle color theme' onClick={toggleColorMode} icon={<FontAwesomeIcon icon={colorMode === 'light' ? faMoon : faSun} />}>
                 Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
             </IconButton>
             {!isSmallScreen &&
@@ -72,7 +72,7 @@ export default function Navbar() {
                             <Button aria-label='log out' onClick={() => auth.signOut()}>Log Out</Button>
                         </Flex>
                     ) : (
-                        <Flex w={'20vw'} justify={'space-evenly'} gap={'2'}>
+                        <Flex w={'1'} justify={'space-evenly'} gap={'2'}>
                             <Button aria-label='log in' onClick={() => router.push("/login")}>
                                 Login
                             </Button>
