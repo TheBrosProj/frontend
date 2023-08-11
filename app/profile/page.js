@@ -1,24 +1,10 @@
-// pages/profile.jsx
 'use client'
-import { useEffect, useState } from 'react';
 import { Box, Heading, Text } from '@chakra-ui/react';
-import { auth } from '@/lib/firebase';
+import { useAuth } from '@/components/AuthContext';
 import { Image } from '@chakra-ui/react';
 
 export default function Profile() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        setUser(authUser);
-      } else {
-        setUser(null);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
+  const { user } = useAuth(); 
 
   return (
     <>

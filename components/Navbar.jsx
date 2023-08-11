@@ -2,16 +2,18 @@
 import { Box, Flex, Avatar, Button, Image, Menu, MenuButton, MenuList, MenuItem, useMediaQuery, useColorMode, IconButton } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faPlay, faSun } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/components/AuthContext';
 
 export default function Navbar() {
     const router = useRouter();
     const { colorMode, toggleColorMode } = useColorMode()
     const [isSmallScreen] = useMediaQuery("(max-width: 600px)");
-    // console.log(auth);
+    const { user } = useAuth(); 
+    console.log(user);
     return (
         <Flex as="nav" align="center" justify="space-around" p={4} fontWeight={"extrabold"}>
             <Link href="/">
@@ -26,7 +28,7 @@ export default function Navbar() {
                         <MenuItem aria-label='home' onClick={() => router.push("/")}>Home</MenuItem>
                         <MenuItem aria-label='profile' onClick={() => router.push("/profile")}>Profile</MenuItem>
                         <MenuItem aria-label='about' onClick={() => router.push("/about")}>About</MenuItem>
-                        {auth.currentUser ? (
+                        {user ? (
                             <>
                                 <MenuItem aria-label='profile' onClick={() => router.push("/profile")}>Account</MenuItem>
                                 <MenuItem aria-label='log out' onClick={() => router.push("/logout")}>Log Out</MenuItem>
@@ -52,19 +54,19 @@ export default function Navbar() {
             </IconButton>
             {!isSmallScreen &&
                 <Box>
-                    {auth.user ? (
-                        <Flex align="center">
+                    {user ? (
+                        <Flex align="center" gap={'4'}>
                             <Link aria-label='profile' href="/profile">
                                 <Avatar
                                     size="sm"
-                                    name={auth.user.email}
-                                    src={`https://api.dicebear.com/6.x/fun-emoji/svg?seed=${auth.user.uid}`}
+                                    name={user.email}
+                                    src={`https://api.dicebear.com/6.x/fun-emoji/svg?seed=${user.uid}`}
                                     mr={2}
                                 />
                             </Link>
                             {/* { !isSmallScreen && (
                                 <Link href="/profile">
-                                <Box mr={2}>{auth.user.email}</Box>
+                                <Box mr={2}>{user.email}</Box>
                                 </Link>
                             )} */}
                             <Button aria-label='log out' onClick={() => auth.signOut()}>Log Out</Button>
