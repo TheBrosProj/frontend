@@ -13,4 +13,5 @@ frontend for a productivity application
 - [ ] Extension to hyperlinks
 - [ ] save projects to DB (firestore)
 - [ ] Search summarizer
-- [ ] Video summarizer
+- [ ] Content summarizer
+- [ ] YT video summarizer
