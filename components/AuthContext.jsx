@@ -13,13 +13,7 @@ const AuthProvider = ({ children }) => {
             setUser(null);
         }
       })
-    useEffect(() => {
-        if (user !== null) {
-            console.log("logged in")
-            console.log(user)
-        }
-    }, [user]);
-
+      
     return (
         <AuthContext.Provider value={{ user, setUser }}>
             {children}

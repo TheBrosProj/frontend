@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // output: 'export',
   webpack: (config) => {
     config.module.rules.push({
       test: /\.(png|jpe?g|gif|mp3|wav)$/i,
@@ -16,6 +16,17 @@ const nextConfig = {
     });
 
     return config;
+  },
+  rewrites: async () => {
+    return [
+      {
+        source: '/api/:path*',
+        destination:
+          process.env.NODE_ENV === 'development'
+            ? 'http://127.0.0.1:5328/api/:path*'
+            : '/api/',
+      },
+    ]
   },
 };
 

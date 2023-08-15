@@ -39,9 +39,9 @@ const Summarizer = () => {
         });
         const openai = new OpenAIApi(configuration);
 
-        console.log(word);
-        console.log(input);
-        console.log(apikey);
+        // console.log(word);
+        // console.log(input);
+        // console.log(apikey);
         const chatCompletion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo-16k",
             messages: [{ role: "system", content: `You are a helpful assistant that summarizes transcript in around ${word} words .` }, { role: "user", content: input }],
@@ -49,7 +49,7 @@ const Summarizer = () => {
 
         // Extract the generated message from the API response
         const generatedSummary = chatCompletion.data.choices[0].message.content;
-        console.log(generatedSummary);
+        // console.log(generatedSummary);
 
         // Update the state with the generated summary
         setSummary(generatedSummary);
