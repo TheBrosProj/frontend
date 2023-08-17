@@ -1,11 +1,8 @@
-'use client'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Text,
     Box,
     Center,
-    Checkbox,
-    CheckboxGroup,
     Editable,
     EditablePreview,
     EditableInput,
@@ -15,7 +12,7 @@ import {
     InputGroup,
     InputRightElement,
 } from "@chakra-ui/react";
-import { CheckIcon, EditIcon, DeleteIcon,RepeatIcon } from "@chakra-ui/icons";
+import { CheckIcon, DeleteIcon, RepeatIcon } from "@chakra-ui/icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment/moment";
@@ -23,25 +20,79 @@ import moment from "moment/moment";
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
     const [input, setInput] = useState("");
-    const handleAddTodo = () => {
-        if (input) {
-            setTodos([...todos, { "data": input, "state": "active" , "time" : moment.now() }]);
-            setInput("");
+
+    useEffect(() => {
+        async function fetchTodos() {
+            const response = await fetch('/todo');
+            if (response.ok) {
+                const todosData = await response.json();
+                setTodos(todosData);
+            }
         }
-        // console.log(todos);
+
+        fetchTodos();
+    }, []);
+
+    const handleAddTodo = async () => {
+        if (input) {
+            const response = await fetch('/todo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: input }),
+            });
+
+            if (response.ok) {
+                const newTodo = await response.json();
+                setTodos([...todos, newTodo]);
+                setInput('');
+            }
+        }
     };
 
-    const handleDelete = (todo) => {
-        setTodos([...todos.filter((t) => t["data"] !== todo["data"] )]);
+    const handleDelete = async (todo) => {
+        const response = await fetch('/todo', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: todo.id }),
+        });
+
+        if (response.ok) {
+            setTodos([...todos.filter((t) => t.id !== todo.id)]);
+        }
     };
 
-    const handleCompletion = (todo) => {
-        setTodos([...todos.filter(t => t["data"] !== todo["data"]), { "data": todo["data"], "state": "completed", "time": moment.now() }])
-    }
+    const handleCompletion = async (todo) => {
+        const response = await fetch('/todo', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: todo.id, state: 'completed' }),
+        });
 
-    const handleRevive = (todo) => {
-        setTodos([...todos.filter(t => t["data"] !== todo["data"]), { "data": todo["data"], "state": "active", "time": moment.now() }])
-    }
+        if (response.ok) {
+            setTodos([...todos.filter(t => t["data"] !== todo["data"]), { "data": todo["data"], "state": "completed", "time": moment.now() }])
+        }
+    };
+
+
+    const handleRevive = async (todo) => {
+        const response = await fetch('/todo', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: todo.id, state: 'active' }),
+        });
+
+        if (response.ok) {
+            setTodos([...todos.filter(t => t["data"] !== todo["data"]), { "data": todo["data"], "state": "active", "time": moment.now() }])
+        }
+    };
     return (
         <Center>
 
@@ -61,11 +112,11 @@ const TodoList = () => {
                         placeholder="Enter a new task"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                        onKeyDown={e=> {
+                        onKeyDown={e => {
                             if (e.key === 'Enter') {
-                               handleAddTodo
+                                handleAddTodo
                             }
-                         }}
+                        }}
                         onSubmit={handleAddTodo}
                     />
                     <InputRightElement>

@@ -72,7 +72,7 @@ export default function Navbar() {
                             <Button aria-label='log out' onClick={() => auth.signOut()}>Log Out</Button>
                         </Flex>
                     ) : (
-                        <Flex w={'1'} justify={'space-evenly'} gap={'2'}>
+                        <Flex justify={'space-evenly'} gap={'2'}>
                             <Button aria-label='log in' onClick={() => router.push("/login")}>
                                 Login
                             </Button>
